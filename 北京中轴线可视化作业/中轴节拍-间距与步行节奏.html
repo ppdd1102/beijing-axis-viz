@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="北京中轴线 15 处遗产点的间距、步行时间与停留时间节拍图：用位置、高度、宽度、斜度与颜色呈现空间秩序。">
+<title>中轴节拍 · 北京中轴线遗产点间距与步行节奏图</title>
+<style>
+  :root{
+    --white:#ffffff;
+    --ink:#121212;
+    --ink-2:#2b2b2b;
+    --gray:#737373;
+    --gray-2:#9b9b9b;
+    --line:#dcdcdc;
+    --line-soft:#eeeeee;
+    --accent:#c33b2c;
+    --accent-2:#8f2b20;
+    --teal:#2f7d74;
+    --ochre:#a77f2f;
+    --verm:#b24a3a;
+    --blue:#4b6986;
+    --sans:"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --mono:"SFMono-Regular","Cascadia Mono","Consolas","Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:var(--ink);color:var(--white)}
+  a{color:inherit}
+  button{font-family:inherit}
+  button:focus-visible,[tabindex]:focus-visible,a:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+  .page{
+    width:min(1600px, calc(100% - 64px));
+    margin:0 auto;
+    padding:0 0 48px;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    border-top:1px solid var(--ink);
+    padding-top:18px;
+  }
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:18px;
+    color:var(--gray);
+    font-size:9px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+  }
+  .topline strong{
+    color:var(--ink);
+    font-weight:600;
+    letter-spacing:.13em;
+  }
+  .topline .rule{
+    display:inline-block;
+    width:32px;
+    height:1px;
+    background:var(--accent);
+    vertical-align:middle;
+    margin-right:8px;
+  }
+
+  .hero{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 360px;
+    gap:44px;
+    padding:28px 0 26px;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:var(--accent);
+    font-size:9px;
+    letter-spacing:.2em;
+    font-weight:600;
+  }
+  .kicker::before{
+    content:"";
+    width:20px;
+    height:1px;
+    background:currentColor;
+  }
+  h1{
+    margin:8px 0 0;
+    font-size:clamp(66px, 8.6vw, 132px);
+    line-height:.86;
+    letter-spacing:-.06em;
+    font-weight:700;
+    color:var(--ink);
+  }
+  h1 .accent{color:var(--accent)}
+  .hero-en{
+    margin:14px 0 0;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.34em;
+    color:var(--gray);
+    text-transform:uppercase;
+  }
+  .hero-dek{
+    margin:22px 0 0;
+    max-width:820px;
+    font-family:var(--serif);
+    font-size:clamp(18px, 1.65vw, 24px);
+    line-height:1.62;
+    font-weight:500;
+    letter-spacing:.01em;
+  }
+  .hero-intro{
+    margin:12px 0 0;
+    max-width:820px;
+    color:var(--gray);
+    font-size:11.5px;
+    line-height:1.9;
+    letter-spacing:.01em;
+  }
+  .hero-intro strong{color:var(--ink);font-weight:600}
+  .direction{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:16px;
+    border:1px solid var(--ink);
+    padding:7px 10px;
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:.08em;
+  }
+  .direction .arrow{
+    color:var(--accent);
+    font-size:14px;
+    line-height:1;
+  }
+  .direction span{color:var(--gray)}
+
+  .hero-side{
+    border-left:1px solid var(--line);
+    padding-left:26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-width:0;
+  }
+  .side-kicker{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    color:var(--gray);
+    font-size:8.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .big-time{
+    margin-top:18px;
+    font-family:var(--mono);
+    font-size:58px;
+    line-height:1;
+    letter-spacing:-.07em;
+    font-weight:500;
+  }
+  .big-time small{
+    font-size:12px;
+    letter-spacing:.05em;
+    color:var(--gray);
+    margin-left:3px;
+    font-weight:400;
+  }
+  .side-rule{
+    height:1px;
+    background:var(--ink);
+    margin:16px 0 13px;
+    position:relative;
+  }
+  .side-rule::after{
+    content:"";
+    position:absolute;
+    right:0;
+    top:-2px;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--accent);
+  }
+  .side-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 14px;
+  }
+  .side-stat strong{
+    display:block;
+    font-family:var(--mono);
+    font-size:22px;
+    line-height:1;
+    font-weight:500;
+    letter-spacing:-.04em;
+  }
+  .side-stat span{
+    display:block;
+    margin-top:4px;
+    font-size:8px;
+    letter-spacing:.09em;
+    color:var(--gray);
+  }
+  .side-note{
+    margin-top:18px;
+    color:var(--gray);
+    font-size:9.5px;
+    line-height:1.75;
+    border-top:1px solid var(--line);
+    padding-top:12px;
+  }
+  .side-note b{color:var(--ink);font-weight:600}
+
+  .stats-strip{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    border-bottom:1px solid var(--line);
+  }
+  .strip-stat{
+    padding:13px 18px 14px 0;
+    border-right:1px solid var(--line);
+  }
+  .strip-stat + .strip-stat{padding-left:18px}
+  .strip-stat:last-child{border-right:0}
+  .strip-stat strong{
+    font-family:var(--mono);
+    font-size:27px;
+    line-height:1;
+    font-weight:500;
+    letter-spacing:-.04em;
+  }
+  .strip-stat strong small{
+    font-size:9px;
+    color:var(--gray);
+    letter-spacing:.06em;
+    margin-left:3px;
+    font-weight:400;
+  }
+  .strip-stat span{
+    display:block;
+    margin-top:5px;
+    font-size:8.5px;
+    color:var(--gray);
+    letter-spacing:.08em;
+  }
+
+  .channels{
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    border-bottom:1px solid var(--line);
+  }
+  .channel{
+    padding:12px 14px 13px 0;
+    border-right:1px solid var(--line-soft);
+    display:grid;
+    grid-template-columns:26px minmax(0,1fr);
+    gap:8px;
+    align-items:start;
+  }
+  .channel + .channel{padding-left:14px}
+  .channel:last-child{border-right:0}
+  .channel-icon{
+    width:24px;
+    height:24px;
+    border:1px solid var(--line);
+    display:grid;
+    place-items:center;
+    font-family:var(--mono);
+    font-size:12px;
+    line-height:1;
+    color:var(--accent);
+  }
+  .channel b{
+    display:block;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:.04em;
+  }
+  .channel span{
+    display:block;
+    margin-top:3px;
+    color:var(--gray);
+    font-size:8px;
+    line-height:1.5;
+  }
+
+  .finding{
+    display:grid;
+    grid-template-columns:150px minmax(0,1fr);
+    gap:22px;
+    padding:17px 0 18px;
+    border-bottom:1px solid var(--line);
+  }
+  .finding-label{
+    padding-top:4px;
+    border-top:1px solid var(--ink);
+    font-size:8.5px;
+    letter-spacing:.16em;
+    color:var(--gray);
+  }
+  .finding-items{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:0;
+  }
+  .finding-item{
+    padding:0 20px;
+    border-left:1px solid var(--line);
+  }
+  .finding-item:first-child{padding-left:0;border-left:0}
+  .finding-item strong{
+    display:block;
+    font-family:var(--mono);
+    font-size:24px;
+    line-height:1;
+    font-weight:500;
+    letter-spacing:-.04em;
+  }
+  .finding-item strong em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .finding-item span{
+    display:block;
+    margin-top:6px;
+    color:var(--gray);
+    font-size:9.5px;
+    line-height:1.55;
+  }
+
+  /* ---------- sections ---------- */
+  main{padding-top:30px}
+  .section-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:13px;
+  }
+  .section-title{
+    display:flex;
+    align-items:flex-start;
+    gap:13px;
+    min-width:0;
+  }
+  .section-no{
+    flex:0 0 auto;
+    width:28px;
+    height:28px;
+    border:1px solid var(--ink);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-family:var(--mono);
+    font-size:9px;
+    margin-top:2px;
+  }
+  h2{
+    margin:0;
+    font-size:clamp(25px,2.2vw,34px);
+    line-height:1.15;
+    letter-spacing:-.035em;
+    font-weight:600;
+  }
+  .section-sub{
+    margin:6px 0 0;
+    color:var(--gray);
+    font-size:10px;
+    line-height:1.6;
+    letter-spacing:.02em;
+  }
+  .section-tools{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex:0 0 auto;
+  }
+  .btn{
+    appearance:none;
+    border:1px solid var(--ink);
+    background:var(--white);
+    color:var(--ink);
+    padding:8px 11px;
+    font-size:9px;
+    letter-spacing:.06em;
+    cursor:pointer;
+    transition:background .18s ease,color .18s ease;
+  }
+  .btn:hover{background:var(--ink);color:var(--white)}
+  .btn .g{margin-left:5px;font-size:12px;line-height:0}
+
+  /* ---------- chart ---------- */
+  .chart-card{
+    border:1px solid var(--ink);
+    background:var(--white);
+    box-shadow:0 14px 40px rgba(0,0,0,.045);
+  }
+  .chart-toolbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 12px;
+    align-items:center;
+  }
+  .legend-label{
+    font-size:8px;
+    letter-spacing:.14em;
+    color:var(--gray);
+    margin-right:2px;
+  }
+  .section-legend button{
+    appearance:none;
+    border:0;
+    background:transparent;
+    color:var(--ink-2);
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:3px 4px;
+    font-size:8.5px;
+    letter-spacing:.02em;
+    cursor:pointer;
+  }
+  .section-legend button:hover{background:#f5f5f5}
+  .section-legend button.is-active{background:var(--ink);color:var(--white)}
+  .section-legend button.is-active .dot{box-shadow:0 0 0 1px var(--white)}
+  .dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    flex:0 0 auto;
+  }
+  .chart-hint{
+    color:var(--gray);
+    font-size:8px;
+    letter-spacing:.05em;
+    margin-left:auto;
+    white-space:nowrap;
+  }
+  .chart-hint b{color:var(--accent);font-weight:500}
+  .chart-top-swipe{display:none}
+  .chart-wrap{
+    position:relative;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding:0 4px;
+    scrollbar-width:thin;
+    scrollbar-color:#cfcfcf transparent;
+  }
+  .chart-wrap::-webkit-scrollbar{height:7px}
+  .chart-wrap::-webkit-scrollbar-thumb{background:#cfcfcf}
+  #rhythm{
+    display:block;
+    width:100%;
+    min-width:1180px;
+    height:auto;
+    overflow:visible;
+    font-family:var(--sans);
+  }
+  .chart-footer{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    border-top:1px solid var(--line);
+    padding:8px 14px 9px;
+    color:var(--gray);
+    font-size:8px;
+    line-height:1.6;
+    letter-spacing:.03em;
+  }
+  .chart-footer b{color:var(--ink);font-weight:500}
+  .chart-footer .mobile-swipe{display:none;color:var(--accent)}
+  .station-index{
+    display:flex;
+    gap:0;
+    border-top:1px solid var(--line);
+    overflow-x:auto;
+    scrollbar-width:thin;
+  }
+  .station-chip{
+    appearance:none;
+    flex:0 0 auto;
+    border:0;
+    border-right:1px solid var(--line-soft);
+    background:transparent;
+    color:var(--ink);
+    text-align:left;
+    padding:8px 10px 8px;
+    min-width:98px;
+    cursor:pointer;
+    transition:background .16s ease;
+  }
+  .station-chip:hover{background:#f7f7f7}
+  .station-chip.is-active{background:var(--ink);color:var(--white)}
+  .station-chip .chip-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:6px;
+    font-family:var(--mono);
+    font-size:7px;
+    color:var(--gray);
+  }
+  .station-chip.is-active .chip-top{color:rgba(255,255,255,.6)}
+  .station-chip strong{
+    display:block;
+    margin-top:4px;
+    font-size:9.5px;
+    font-weight:500;
+    white-space:nowrap;
+  }
+  .station-chip .chip-meta{
+    display:block;
+    margin-top:3px;
+    font-family:var(--mono);
+    font-size:7px;
+    color:var(--gray);
+    letter-spacing:.02em;
+  }
+  .station-chip.is-active .chip-meta{color:rgba(255,255,255,.6)}
+  .chart-note{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    margin:10px 0 0;
+    padding:8px 0 8px 11px;
+    border-left:2px solid var(--accent);
+    color:var(--gray);
+    font-size:9.5px;
+    line-height:1.75;
+  }
+  .chart-note b{
+    flex:0 0 auto;
+    color:var(--ink);
+    font-size:9px;
+    letter-spacing:.04em;
+  }
+  .chart-note span{max-width:1120px}
+
+  /* svg text */
+  .stage-label{
+    font-size:9px;
+    fill:var(--gray);
+    letter-spacing:.05em;
+  }
+  .site-label{
+    font-family:var(--sans);
+    font-size:10.5px;
+    fill:var(--ink);
+    font-weight:500;
+    letter-spacing:.01em;
+    dominant-baseline:middle;
+    cursor:pointer;
+    transition:fill .15s ease,opacity .2s ease;
+  }
+  .site-label .s-no{
+    font-family:var(--mono);
+    font-size:7.5px;
+    fill:var(--gray);
+    letter-spacing:0;
+  }
+  .site-label:hover{fill:var(--accent)}
+  .site-label.is-selected{fill:var(--accent);font-weight:700}
+  .site-label.is-dimmed{opacity:.2}
+  .label-hit{fill:transparent;cursor:pointer}
+  .section-band{opacity:.045;pointer-events:all;cursor:pointer}
+  .section-rule{stroke-width:2.5;shape-rendering:crispEdges;pointer-events:none}
+  .section-title-text{
+    font-family:var(--mono);
+    font-size:8px;
+    letter-spacing:.12em;
+    fill:var(--gray);
+  }
+  .section-name{
+    font-family:var(--serif);
+    font-size:13px;
+    fill:var(--ink);
+    font-weight:600;
+  }
+  .grid-line{
+    stroke:#ededed;
+    stroke-width:1;
+    stroke-dasharray:2 5;
+    shape-rendering:crispEdges;
+  }
+  .grid-text{
+    font-family:var(--mono);
+    font-size:7.5px;
+    fill:#a3a3a3;
+    letter-spacing:.03em;
+  }
+  .axis-line{
+    stroke:var(--ink);
+    stroke-width:1.4;
+    shape-rendering:crispEdges;
+  }
+  .axis-cap{
+    font-family:var(--mono);
+    font-size:8px;
+    fill:var(--gray);
+    letter-spacing:.16em;
+  }
+  .axis-note{
+    font-family:var(--mono);
+    font-size:7px;
+    fill:#a3a3a3;
+    letter-spacing:.04em;
+  }
+  .dwell-bar{
+    cursor:pointer;
+    transition:opacity .2s ease,filter .2s ease;
+  }
+  .dwell-bar .bar-body{
+    stroke:rgba(18,18,18,.18);
+    stroke-width:.5;
+    rx:2;
+  }
+  .dwell-bar:hover .bar-body{stroke:var(--ink);stroke-width:1.4}
+  .dwell-bar.is-selected .bar-body{
+    stroke:var(--ink);
+    stroke-width:1.6;
+    filter:drop-shadow(0 2px 3px rgba(0,0,0,.12));
+  }
+  .dwell-bar.is-dimmed{opacity:.15}
+  .dwell-bar.is-dimmed:hover{opacity:.45}
+  .dwell-value{
+    font-family:var(--mono);
+    font-size:8px;
+    fill:var(--ink);
+    text-anchor:middle;
+    letter-spacing:-.02em;
+    pointer-events:none;
+  }
+  .dwell-value.is-dimmed{opacity:.2}
+  .walk-seg{
+    cursor:pointer;
+    transition:opacity .18s ease;
+  }
+  .walk-seg .walk-face{
+    fill-opacity:.19;
+    stroke:none;
+  }
+  .walk-seg .walk-edge{
+    fill:none;
+    stroke-width:1.5;
+    opacity:.88;
+    pointer-events:none;
+  }
+  .walk-seg:hover .walk-face{fill-opacity:.3}
+  .walk-seg:hover .walk-edge{stroke-width:1.8}
+  .walk-seg.is-selected .walk-face{
+    fill-opacity:.4;
+    stroke:var(--ink);
+    stroke-width:1;
+  }
+  .walk-seg.is-selected .walk-edge{stroke:var(--ink);stroke-width:1.8}
+  .walk-seg.is-dimmed{opacity:.12}
+  .walk-seg.is-dimmed:hover{opacity:.35}
+  .walk-label{
+    font-family:var(--mono);
+    font-size:8px;
+    fill:var(--gray);
+    text-anchor:middle;
+    letter-spacing:.02em;
+    pointer-events:none;
+  }
+  .walk-label.is-slow{fill:var(--accent);font-weight:600}
+  .walk-label.is-dimmed{opacity:.2}
+  .station-dot{
+    fill:var(--white);
+    stroke-width:2.4;
+    cursor:pointer;
+    transition:r .15s ease,fill .15s ease,opacity .2s ease;
+  }
+  .station-dot:hover{fill:var(--ink)}
+  .station-dot.is-selected{fill:var(--ink);stroke:var(--ink)}
+  .station-dot.is-dimmed{opacity:.2}
+  .station-tick{
+    stroke:#b5b5b5;
+    stroke-width:.8;
+    shape-rendering:crispEdges;
+  }
+  .sense-area{fill:#111;opacity:.035}
+  .sense-line{
+    fill:none;
+    stroke:#111;
+    stroke-width:1.4;
+    opacity:.72;
+  }
+  .sense-dot{stroke:var(--white);stroke-width:1.2}
+  .sense-dot.is-selected{stroke:var(--ink);stroke-width:1.6}
+  .sense-dot.is-dimmed{opacity:.2}
+  .sense-label{
+    font-family:var(--mono);
+    font-size:7.5px;
+    fill:#9b9b9b;
+    letter-spacing:.06em;
+  }
+  .density-bracket{
+    fill:none;
+    stroke:var(--accent);
+    stroke-width:.9;
+    opacity:.75;
+  }
+  .density-text{
+    font-family:var(--mono);
+    font-size:7.5px;
+    fill:var(--accent);
+    letter-spacing:.04em;
+    text-anchor:middle;
+  }
+  .selection-line{
+    stroke:var(--accent);
+    stroke-width:1;
+    stroke-dasharray:3 4;
+    opacity:.55;
+    pointer-events:none;
+  }
+  .selection-ring{
+    fill:none;
+    stroke:var(--accent);
+    stroke-width:2;
+    opacity:.8;
+    pointer-events:none;
+  }
+  .axis-caption{
+    font-family:var(--mono);
+    font-size:7.5px;
+    fill:#a3a3a3;
+    letter-spacing:.04em;
+  }
+
+  /* tooltip */
+  .tooltip{
+    position:absolute;
+    z-index:20;
+    pointer-events:none;
+    background:var(--ink);
+    color:var(--white);
+    padding:7px 9px 8px;
+    max-width:230px;
+    font-size:9px;
+    line-height:1.55;
+    letter-spacing:.01em;
+    opacity:0;
+    transform:translate(-50%,calc(-100% - 10px));
+    transition:opacity .12s ease;
+  }
+  .tooltip.visible{opacity:1}
+  .tooltip strong{
+    display:block;
+    font-size:10.5px;
+    font-weight:600;
+    margin-bottom:2px;
+  }
+  .tooltip .muted{color:rgba(255,255,255,.6);font-size:8px}
+
+  /* ---------- route planning ---------- */
+  .route-section{padding-top:38px}
+  .route-intro{
+    display:grid;
+    grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr);
+    gap:32px;
+    align-items:end;
+    margin-bottom:14px;
+  }
+  .route-intro p{
+    margin:7px 0 0;
+    max-width:780px;
+    color:var(--gray);
+    font-size:10px;
+    line-height:1.8;
+  }
+  .route-intro p strong{color:var(--ink);font-weight:600}
+  .route-formula{
+    border-top:1px solid var(--ink);
+    padding-top:9px;
+    font-family:var(--mono);
+    font-size:8.5px;
+    line-height:1.8;
+    color:var(--gray);
+    letter-spacing:.01em;
+  }
+  .route-formula b{color:var(--accent);font-weight:500}
+  .route-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:8px;
+  }
+  .route-card{
+    appearance:none;
+    border:1px solid var(--line);
+    background:var(--white);
+    color:var(--ink);
+    text-align:left;
+    padding:13px 13px 12px;
+    cursor:pointer;
+    min-height:172px;
+    display:flex;
+    flex-direction:column;
+    transition:border-color .18s ease,transform .18s ease,background .18s ease;
+  }
+  .route-card:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .route-card.is-active{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+  .route-card-top{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    font-family:var(--mono);
+    font-size:7.5px;
+    color:var(--gray);
+    letter-spacing:.05em;
+  }
+  .route-card h3{
+    margin:12px 0 3px;
+    font-size:17px;
+    line-height:1.2;
+    font-weight:600;
+    letter-spacing:-.02em;
+  }
+  .route-card .route-tag{
+    color:var(--gray);
+    font-size:8.5px;
+    line-height:1.5;
+  }
+  .route-card .route-stats{
+    display:flex;
+    gap:12px;
+    margin-top:auto;
+    padding-top:13px;
+    border-top:1px solid var(--line-soft);
+  }
+  .route-card .route-stat strong{
+    display:block;
+    font-family:var(--mono);
+    font-size:15px;
+    line-height:1;
+    font-weight:500;
+  }
+  .route-card .route-stat span{
+    display:block;
+    margin-top:4px;
+    font-size:7.5px;
+    color:var(--gray);
+    letter-spacing:.05em;
+  }
+  .route-card .route-line{
+    display:flex;
+    gap:3px;
+    margin-top:11px;
+  }
+  .route-card .route-line i{
+    height:4px;
+    flex:1;
+    background:var(--section-color,var(--ink));
+    opacity:.85;
+  }
+  .product-fields{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    align-items:center;
+    margin-top:13px;
+    padding-top:11px;
+    border-top:1px solid var(--line);
+  }
+  .product-fields .label{
+    font-family:var(--mono);
+    font-size:7.5px;
+    color:var(--gray);
+    letter-spacing:.08em;
+    margin-right:4px;
+  }
+  .field{
+    border:1px solid var(--line);
+    padding:4px 6px;
+    font-family:var(--mono);
+    font-size:7.5px;
+    color:var(--ink-2);
+    background:#fafafa;
+  }
+  .field b{color:var(--accent);font-weight:500}
+
+  /* ---------- method ---------- */
+  .method{
+    margin-top:38px;
+    border-top:1px solid var(--ink);
+    padding-top:18px;
+  }
+  .method-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1.05fr 1.1fr 1.2fr;
+    gap:28px;
+  }
+  .method-block .label{
+    display:block;
+    font-family:var(--mono);
+    font-size:7.5px;
+    letter-spacing:.14em;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+  .method-block h3{
+    margin:0 0 6px;
+    font-size:14px;
+    line-height:1.35;
+    font-weight:600;
+  }
+  .method-block p,
+  .method-block li{
+    margin:0;
+    color:var(--gray);
+    font-size:9px;
+    line-height:1.8;
+    letter-spacing:.01em;
+  }
+  .method-block ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .method-block li{
+    padding:2px 0;
+    border-bottom:1px dotted var(--line);
+  }
+  .method-block li:last-child{border-bottom:0}
+  .method-block a{
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+  }
+  .method-block a:hover{color:var(--accent);border-color:var(--accent)}
+  .method-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+  .method-actions .btn{font-size:8px;padding:6px 8px}
+
+  footer{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    margin-top:30px;
+    border-top:1px solid var(--line);
+    padding-top:11px;
+    color:var(--gray);
+    font-size:7.5px;
+    line-height:1.7;
+    letter-spacing:.06em;
+  }
+  footer .right{text-align:right}
+  footer a{
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+  }
+  footer a:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* ---------- drawer ---------- */
+  .drawer{
+    position:fixed;
+    z-index:100;
+    top:76px;
+    right:24px;
+    width:412px;
+    max-height:calc(100vh - 100px);
+    background:var(--white);
+    border:1px solid var(--ink);
+    box-shadow:0 20px 70px rgba(0,0,0,.18);
+    display:flex;
+    flex-direction:column;
+    transform:translateX(calc(100% + 40px));
+    transition:transform .28s cubic-bezier(.2,.7,.2,1);
+    visibility:hidden;
+  }
+  .drawer.left{
+    left:24px;
+    right:auto;
+    transform:translateX(calc(-100% - 40px));
+  }
+  .drawer.open{transform:translateX(0);visibility:visible}
+  .drawer-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    padding:13px 16px 10px;
+    border-bottom:1px solid var(--line);
+  }
+  .drawer-kicker{
+    font-family:var(--mono);
+    font-size:7.5px;
+    letter-spacing:.14em;
+    color:var(--accent);
+    text-transform:uppercase;
+  }
+  .drawer-close{
+    appearance:none;
+    border:0;
+    background:transparent;
+    color:var(--gray);
+    font-size:17px;
+    line-height:1;
+    cursor:pointer;
+    padding:1px 2px;
+  }
+  .drawer-close:hover{color:var(--accent)}
+  .drawer-body{
+    padding:15px 16px 20px;
+    overflow-y:auto;
+    scrollbar-width:thin;
+    scrollbar-color:#cfcfcf transparent;
+  }
+  .drawer-body::-webkit-scrollbar{width:6px}
+  .drawer-body::-webkit-scrollbar-thumb{background:#cfcfcf}
+  .drawer h2{
+    margin:7px 0 0;
+    font-size:27px;
+    line-height:1.12;
+    letter-spacing:-.035em;
+  }
+  .drawer-sub{
+    margin:5px 0 0;
+    color:var(--gray);
+    font-family:var(--mono);
+    font-size:8px;
+    letter-spacing:.03em;
+  }
+  .drawer-lede{
+    margin:12px 0 0;
+    font-size:10.5px;
+    line-height:1.85;
+    color:var(--ink-2);
+  }
+  .drawer h4{
+    margin:17px 0 6px;
+    font-family:var(--mono);
+    font-size:7.5px;
+    letter-spacing:.13em;
+    color:var(--gray);
+    font-weight:500;
+  }
+  .drawer p{
+    margin:5px 0 0;
+    color:var(--gray);
+    font-size:9.5px;
+    line-height:1.8;
+  }
+  .drawer p strong{color:var(--ink);font-weight:600}
+  .metric-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+    margin-top:13px;
+  }
+  .metric-cell{
+    padding:9px 9px 8px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .metric-cell strong{
+    display:block;
+    font-family:var(--mono);
+    font-size:20px;
+    line-height:1;
+    font-weight:500;
+    letter-spacing:-.04em;
+  }
+  .metric-cell strong small{
+    font-size:8px;
+    color:var(--gray);
+    letter-spacing:.02em;
+    margin-left:2px;
+  }
+  .metric-cell span{
+    display:block;
+    margin-top:4px;
+    color:var(--gray);
+    font-size:7.5px;
+    letter-spacing:.05em;
+  }
+  .tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+  .tag{
+    border:1px solid var(--line);
+    padding:3px 5px;
+    font-family:var(--mono);
+    font-size:7px;
+    color:var(--gray);
+    letter-spacing:.03em;
+  }
+  .tag.is-accent{border-color:var(--accent);color:var(--accent)}
+  .route-tip{
+    margin-top:14px;
+    border-left:2px solid var(--accent);
+    padding:7px 0 7px 9px;
+    background:#fbfbfb;
+  }
+  .route-tip strong{
+    display:block;
+    font-family:var(--mono);
+    font-size:7px;
+    letter-spacing:.12em;
+    color:var(--accent);
+    margin-bottom:3px;
+  }
+  .route-tip p{margin:0;font-size:9px;line-height:1.7}
+  .drawer-nav{
+    display:flex;
+    gap:6px;
+    margin-top:14px;
+  }
+  .drawer-nav button{
+    appearance:none;
+    flex:1;
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:7px 8px;
+    font-size:8px;
+    color:var(--ink);
+    text-align:left;
+    cursor:pointer;
+  }
+  .drawer-nav button:hover{border-color:var(--ink);background:#f7f7f7}
+  .drawer-nav button span{
+    display:block;
+    margin-top:3px;
+    color:var(--gray);
+    font-size:7px;
+  }
+  .schedule{
+    display:grid;
+    margin-top:7px;
+    border-top:1px solid var(--line);
+  }
+  .schedule-row{
+    display:grid;
+    grid-template-columns:44px minmax(0,1fr) auto;
+    gap:8px;
+    align-items:baseline;
+    padding:6px 0;
+    border-bottom:1px solid var(--line-soft);
+    font-size:8.5px;
+  }
+  .schedule-row .time{
+    font-family:var(--mono);
+    color:var(--accent);
+    font-size:7.5px;
+  }
+  .schedule-row .place b{font-weight:600}
+  .schedule-row .place small{
+    display:block;
+    margin-top:2px;
+    color:var(--gray);
+    font-size:7px;
+  }
+  .schedule-row .dur{
+    font-family:var(--mono);
+    font-size:7.5px;
+    color:var(--gray);
+    white-space:nowrap;
+  }
+  .schedule-row.is-walk{background:#fafafa}
+  .schedule-row.is-walk .place{color:var(--gray)}
+  .drawer-section-list{
+    display:grid;
+    margin-top:7px;
+    border-top:1px solid var(--line);
+  }
+  .drawer-section-list button{
+    appearance:none;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    border:0;
+    border-bottom:1px solid var(--line-soft);
+    background:transparent;
+    padding:6px 0;
+    font-size:8.5px;
+    color:var(--ink);
+    text-align:left;
+    cursor:pointer;
+  }
+  .drawer-section-list button:hover{color:var(--accent)}
+  .drawer-section-list span{
+    font-family:var(--mono);
+    color:var(--gray);
+    font-size:7.5px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1280px){
+    .page{width:calc(100% - 44px)}
+    .hero{grid-template-columns:minmax(0,1fr) 310px;gap:30px}
+    .hero-side{padding-left:20px}
+    .big-time{font-size:48px}
+    .route-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .method-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 30px}
+  }
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr;gap:22px}
+    .hero-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+    .hero-side .side-note{grid-column:span 2}
+    .big-time{margin-top:0;font-size:44px}
+    .channels{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .channel:nth-child(3n){border-right:0}
+    .channel:nth-child(n+4){border-top:1px solid var(--line-soft)}
+    .finding{grid-template-columns:1fr;gap:9px}
+    .finding-items{gap:0}
+    .route-intro{grid-template-columns:1fr;gap:14px}
+    .drawer{width:390px;right:16px}
+  }
+  @media (max-width:760px){
+    .page{width:calc(100% - 28px)}
+    .topline{font-size:7.5px;letter-spacing:.1em}
+    .topline .rule{width:18px;margin-right:5px}
+    .hero{padding:22px 0 20px}
+    h1{font-size:clamp(58px,17vw,92px)}
+    .hero-en{font-size:8px;letter-spacing:.22em}
+    .hero-dek{font-size:17px;line-height:1.55;margin-top:16px}
+    .hero-intro{font-size:10.5px;line-height:1.8}
+    .direction{font-size:8px;padding:6px 8px}
+    .stats-strip{grid-template-columns:1fr 1fr}
+    .strip-stat{border-bottom:1px solid var(--line);padding:10px 10px 10px 0}
+    .strip-stat:nth-child(2n){border-right:0;padding-left:10px}
+    .strip-stat:nth-child(n+3){border-bottom:0}
+    .strip-stat strong{font-size:22px}
+    .channels{grid-template-columns:1fr 1fr}
+    .channel:nth-child(2n){border-right:0}
+    .channel:nth-child(n+3){border-top:1px solid var(--line-soft)}
+    .finding-items{grid-template-columns:1fr}
+    .finding-item{padding:9px 0;border-left:0;border-top:1px solid var(--line-soft)}
+    .finding-item:first-child{border-top:0;padding-top:0}
+    .finding-item strong{font-size:20px}
+    .section-head{align-items:flex-start;flex-direction:column;gap:8px}
+    .section-tools{width:100%;justify-content:flex-end}
+    .chart-toolbar{flex-wrap:wrap;padding:9px 10px}
+    .chart-hint{display:none}
+    .chart-top-swipe{display:block;width:100%;color:var(--accent);font-size:8px;letter-spacing:.04em}
+    .stats-strip{display:none}
+    .chart-footer{padding:7px 10px;flex-direction:column;gap:3px}
+    .chart-footer .mobile-swipe{display:block}
+    .station-chip{min-width:88px;padding:7px 8px}
+    .chart-note{flex-direction:column;gap:3px;font-size:9px}
+    .route-grid{grid-template-columns:1fr}
+    .route-card{min-height:148px}
+    .product-fields{margin-top:10px}
+    .method-grid{grid-template-columns:1fr;gap:18px}
+    footer{flex-direction:column;gap:5px}
+    footer .right{text-align:left}
+    .drawer{
+      top:auto;
+      left:0;
+      right:0;
+      bottom:0;
+      width:auto;
+      max-height:78vh;
+      border-left:0;
+      border-right:0;
+      border-bottom:0;
+      transform:translateY(calc(100% + 20px));
+    }
+    .drawer.left{left:0;right:0;transform:translateY(calc(100% + 20px))}
+    .drawer.open{transform:translateY(0)}
+    .drawer h2{font-size:23px}
+  }
+  @media (max-width:420px){
+    .hero-side{grid-template-columns:1fr}
+    .hero-side .side-note{grid-column:auto}
+    .stats-strip{grid-template-columns:1fr 1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="topline">
+      <div><span class="rule"></span><strong>信息可视化 · 北京中轴线</strong></div>
+      <div>BEIJING CENTRAL AXIS / RHYTHM SCORE</div>
+      <div>NO. 02 &nbsp;·&nbsp; 2026</div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-main">
+        <div class="kicker">遗产点间距 × 步行时间 × 停留时间</div>
+        <h1>中轴<span class="accent">节拍</span></h1>
+        <div class="hero-en">The Axis in Rhythm</div>
+        <p class="hero-dek">从永定门到钟鼓楼，<br>15 个站点、14 段步行、13.25 公里的空间乐章。</p>
+        <p class="hero-intro">
+          这条线不是一张等距的清单。门洞把空间收紧，广场把它放大，坛庙从两侧插入，安检与过街让人被迫慢下来。把<strong>距离、停留与步速</strong>放在同一条轴上，中轴的秩序就变成了一段可以“听见”的节奏。图中每一根柱、每一道斜线，都是路线规划器里的一个真实字段。
+        </p>
+        <div class="direction"><span class="arrow">S → N</span> 南进北出 <span>为顺应故宫午门进、神武门出的单向参观</span></div>
+      </div>
+
+      <aside class="hero-side">
+        <div>
+          <div class="side-kicker"><span>全轴慢行 / Full axis</span><span>建议 08:30 出发</span></div>
+          <div class="big-time">8<small>h</small>42<small>m</small></div>
+          <div class="side-rule"></div>
+          <div class="side-stats">
+            <div class="side-stat"><strong>13.25</strong><span>公里 · 含东西支线</span></div>
+            <div class="side-stat"><strong>3h17</strong><span>纯步行 · 14 段</span></div>
+            <div class="side-stat"><strong>5h25</strong><span>建议停留时间</span></div>
+            <div class="side-stat"><strong>15</strong><span>遗产构成要素</span></div>
+          </div>
+        </div>
+        <p class="side-note"><b>为什么从南往北？</b> 故宫只能午门进、神武门出。从南端起拍，才能把宫城放在路线中段，而不是在景山之后折返。方向本身就是一条产品规则。</p>
+      </aside>
+    </div>
+
+    <div class="channels">
+      <div class="channel"><div class="channel-icon">·</div><div><b>位置</b><span>真实步行距离，不是等距排布</span></div></div>
+      <div class="channel"><div class="channel-icon">▮</div><div><b>高度</b><span>建议停留，越长越是“长音”</span></div></div>
+      <div class="channel"><div class="channel-icon">▬</div><div><b>宽度</b><span>空间开合，门窄、场阔</span></div></div>
+      <div class="channel"><div class="channel-icon">╱</div><div><b>斜度</b><span>有效步速，越陡越慢</span></div></div>
+      <div class="channel"><div class="channel-icon">◼</div><div><b>颜色</b><span>四个乐章，四种空间性格</span></div></div>
+      <div class="channel"><div class="channel-icon">⌁</div><div><b>细线</b><span>轴线感：能否读到连续对景</span></div></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-label">三个反常识 / FINDINGS</div>
+      <div class="finding-items">
+        <div class="finding-item"><strong><em>13.25</em> km</strong><span>走完 15 处遗产点，比 7.8 km 的中轴本体多出 5.45 km 的东西支线。</span></div>
+        <div class="finding-item"><strong>150 m <em>/</em> 4 min</strong><span>金水桥到天安门是全线最短的一段，却是有效步速最慢的一段。</span></div>
+        <div class="finding-item"><strong>1.55 km <em>/</em> 4 站</strong><span>金水桥—天安门—端门—故宫，连续四次收放，是全线密度峰值。</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="chartSection">
+      <div class="section-head">
+        <div class="section-title">
+          <span class="section-no">01</span>
+          <div>
+            <h2>轴线节拍谱</h2>
+            <p class="section-sub">S 永定门 0 km &nbsp;→&nbsp; N 钟鼓楼 13.25 km &nbsp;·&nbsp; 点击站点、步行段或乐章查看详情</p>
+          </div>
+        </div>
+        <div class="section-tools">
+          <button class="btn" id="resetBtn" type="button">重置视图 <span class="g">↺</span></button>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-toolbar">
+          <div class="section-legend" id="sectionLegend">
+            <span class="legend-label">乐章</span>
+          </div>
+          <div class="chart-hint"><b>点击</b> 柱子 / 斜线 / 乐章标签，右侧展开详细数据</div>
+          <span class="chart-top-swipe">← 左右滑动查看 13.25 km 全线 →</span>
+        </div>
+
+        <div class="chart-wrap" id="chartWrap">
+          <svg id="rhythm" viewBox="0 0 1500 760" role="img" aria-labelledby="rhythmTitle rhythmDesc">
+            <title id="rhythmTitle">北京中轴线遗产点间距与步行节奏图</title>
+            <desc id="rhythmDesc">横轴为真实步行距离，柱高为建议停留时间，柱宽为空间开合度，下方斜线为步行时间与有效步速，顶部细线为轴线感知度。</desc>
+          </svg>
+          <div class="tooltip" id="tooltip"></div>
+        </div>
+
+        <div class="chart-footer">
+          <span><b>x</b> 真实步行距离（km）&nbsp;·&nbsp; <b>柱高</b> 建议停留（min）&nbsp;·&nbsp; <b>柱宽</b> 空间开合（1–5）&nbsp;·&nbsp; <b>下斜线</b> 步行时间 / 有效步速</span>
+          <span class="mobile-swipe">← 左右滑动查看完整轴线 →</span>
+        </div>
+
+        <div class="station-index" id="stationIndex"></div>
+      </div>
+      <p class="chart-note"><b>为什么这样画</b><span>位置是真实距离，高度是停留，宽度是开合，斜度是步速，细线是轴线感。五个通道叠在一起，才让“空间秩序”从形容词变成可比较、可点击、可进入路线规划的数据。</span></p>
+    </section>
+
+    <section class="route-section" id="routeSection">
+      <div class="section-head">
+        <div class="section-title">
+          <span class="section-no">02</span>
+          <div>
+            <h2>把节拍变成路线</h2>
+            <p class="section-sub">同一套字段，可以直接进入路线规划器：距离是边权，停留是节点服务时间，斜度是通行成本。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="route-intro">
+        <p>一条路线不只是“把点连起来”。它要回答：<strong>哪里该快走，哪里必须留停，哪里会被安检和过街拖慢，哪里值得为一个侧向坛庙多走 1 公里。</strong>下面四条预设路线，分别对应亲子、半日、北段和全轴四种产品形态。点击卡片，图中只保留这条路线。</p>
+        <div class="route-formula">ROUTE COST = <b>walk_min</b> + dwell_min + friction_weight × crowd + experience_weight × axis_sense</div>
+      </div>
+
+      <div class="route-grid" id="routeGrid"></div>
+
+      <div class="product-fields" aria-label="可接入路线规划的数据字段">
+        <span class="label">ROUTE-READY FIELDS</span>
+        <span class="field"><b>distance_m</b></span>
+        <span class="field"><b>walk_min</b></span>
+        <span class="field"><b>dwell_min</b></span>
+        <span class="field"><b>pace_min_100m</b></span>
+        <span class="field"><b>openness_1_5</b></span>
+        <span class="field"><b>axis_sense_1_5</b></span>
+        <span class="field"><b>friction</b></span>
+        <span class="field"><b>section</b></span>
+      </div>
+    </section>
+
+    <section class="method" id="method">
+      <div class="method-grid">
+        <div class="method-block">
+          <span class="label">距离 / DISTANCE</span>
+          <h3>不是测绘，是可执行的步行路径</h3>
+          <p>相邻遗产点距离按公开地图步行路径估算，含太庙、社稷坛、天坛、先农坛等东西支线，取整到 50 m。它不是文物保护规划中的测绘距离，而是“把 15 处都走到”的路线距离。</p>
+        </div>
+        <div class="method-block">
+          <span class="label">时间 / TIME</span>
+          <h3>步行时间包含真实摩擦</h3>
+          <p>步行时间按 4.0–4.5 km/h 估算，并计入过街等待、安检、检票与人流拥堵。有效步速 = 步行分钟 ÷ 距离 × 100，斜度用它计算，因此“最短的一段”也可能最慢。</p>
+        </div>
+        <div class="method-block">
+          <span class="label">评分 / SCORES</span>
+          <h3>开合度与轴线感是编辑评分</h3>
+          <p>空间开合度 1–5：1 为门洞/桥面等强围合，5 为广场/坛域等大尺度开放。轴线感 1–5：站在该点能否读到连续轴线与对景。两者用于比较空间性格，不是问卷统计。</p>
+        </div>
+        <div class="method-block">
+          <span class="label">方向与参考 / SOURCES</span>
+          <h3>南进北出，是一条产品约束</h3>
+          <p>故宫午门进、神武门出；本图从永定门起拍，把宫城放在路线中段。预约、安检与开放时间以官方信息为准。</p>
+          <ul>
+            <li><a href="https://whc.unesco.org/en/list/1714/" target="_blank" rel="noopener">UNESCO · Beijing Central Axis (No. 1714, 2024)</a></li>
+            <li><a href="https://www.dpm.org.cn/" target="_blank" rel="noopener">故宫博物院 · 参观须知</a></li>
+            <li><a href="https://www.beijing.gov.cn/" target="_blank" rel="noopener">北京市人民政府 · 中轴线保护管理规划</a></li>
+          </ul>
+          <div class="method-actions">
+            <button class="btn" id="downloadCsv" type="button">下载节拍数据 CSV</button>
+            <button class="btn" id="backTop" type="button">回到顶部 ↑</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>中轴节拍 / The Axis in Rhythm<br>信息可视化作业 · 北京中轴线遗产点间距与步行节奏图<br><a href="中轴流转-功能演变桑基图.html">← 另一张：中轴流转 · 功能演变桑基图</a></div>
+    <div class="right">数据整理与视觉设计 · 2026<br>教学与研究性可视化，不替代官方测绘、开放时间与预约信息。</div>
+  </footer>
+</div>
+
+<aside class="drawer" id="drawer" aria-label="详细信息面板" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="drawer-kicker" id="drawerKicker">DETAIL</div>
+    <button class="drawer-close" id="drawerClose" type="button" aria-label="关闭详情">×</button>
+  </div>
+  <div class="drawer-body" id="drawerBody" aria-live="polite"></div>
+</aside>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ============================================================
+     0. 数据
+     ============================================================ */
+
+  const SECTIONS = {
+    I:  { id: "I",  roman: "I",  name: "南端序曲", en: "Southern Prelude", color: "#2f7d74", range: "0–3.05 km",
+          desc: "永定门起拍，先农坛与天坛两次侧向展开。中轴在南端并不急着进入，而是用城门、坛庙、另一片坛庙，为全曲定下‘收—放—再放’的呼吸。" },
+    II: { id: "II", roman: "II", name: "门户与广场", en: "Gates & Square", color: "#a77f2f", range: "4.65–6.65 km",
+          desc: "回到南段道路，穿过正阳门，进入天安门广场。空间从街道收束到门洞，再突然放大到国家广场，是全线最剧烈的一次‘音量’变化。" },
+    III:{ id: "III", roman: "III", name: "坛庙与宫门", en: "Altars & Palace Gates", color: "#b24a3a", range: "7.30–9.50 km",
+          desc: "社稷坛、太庙两次侧向插入，金水桥、天安门、端门连续收窄。中轴在这里从‘广场’变成‘门洞序列’，也是全线密度最高的段落。" },
+    IV: { id: "IV", roman: "IV", name: "宫城与北端", en: "Palace & North End", color: "#4b6986", range: "10.55–13.25 km",
+          desc: "故宫是最长的停留，景山是唯一一次完整俯瞰，万宁桥把尺度压回日常，钟鼓楼以‘时间’收束全曲。" }
+  };
+
+  const SITES = [
+    {
+      id: "yongdingmen", no: 1, name: "永定门", short: "永定门", en: "Yongdingmen",
+      km: 0, dwell: 10, openness: 4, axisSense: 5, section: "I", labelRow: 2,
+      role: "南端起点 / 门户",
+      detail: "外城正门，2004 年重建。站在门洞下向北望，视线沿南中轴一路收进正阳门；这是全轴最开阔的起拍，也是‘南进北出’路线的零点。",
+      look: "城楼、瓮城遗址、南中轴起点标识。",
+      tip: "建议 08:30 从这里出发；地铁 8 号线/14 号线永定门外站。早晨逆光较少，适合拍城门正面。"
+    },
+    {
+      id: "xiannongtan", no: 2, name: "先农坛", short: "先农坛", en: "Xiannongtan",
+      km: 1.15, dwell: 25, openness: 3, axisSense: 2, section: "I", labelRow: 1,
+      role: "西侧支线 / 农事礼制",
+      detail: "与天坛东西对望的皇家祭农空间。离开中轴主线向西一拐，节奏从开阔的城门广场变成围合的坛庙院落；轴线感在这里主动下降。",
+      look: "先农坛、庆成宫、北京古代建筑博物馆。",
+      tip: "与天坛安排在同一半天；北京古代建筑博物馆通常周一闭馆，出发前确认。"
+    },
+    {
+      id: "tiantan", no: 3, name: "天坛", short: "天坛", en: "Temple of Heaven",
+      km: 3.05, dwell: 45, openness: 5, axisSense: 3, section: "I", labelRow: 0,
+      role: "东侧支线 / 祭天",
+      detail: "从先农坛向东穿过永定门内大街，进入另一片更大的坛庙宇宙。天坛的轴线是‘子轴线’，与中轴主线平行，形成一次强烈的横向展开。",
+      look: "祈年殿、圜丘、回音壁。",
+      tip: "预留 45–60 分钟；南门进、东门出可少走回头路。"
+    },
+    {
+      id: "southroad", no: 4, name: "中轴线南段道路遗存", short: "南段道路", en: "Southern Road Remains",
+      km: 4.65, dwell: 5, openness: 2, axisSense: 3, section: "II", labelRow: 1,
+      role: "考古切片 / 御道",
+      detail: "从坛庙回到中轴主线，脚下的道路层位把‘轴线’从建筑变成可触摸的地面。空间重新收窄，节奏回到步行。",
+      look: "道路遗存展示、排水沟遗迹。",
+      tip: "停留 5 分钟即可；注意路面标识，不要错过展示段。"
+    },
+    {
+      id: "zhengyangmen", no: 5, name: "正阳门", short: "正阳门", en: "Zhengyangmen",
+      km: 5.90, dwell: 15, openness: 2, axisSense: 5, section: "II", labelRow: 0,
+      role: "内城正门 / 收束",
+      detail: "前门大街的喧闹在此收束为一座城门。穿过门洞，北望天安门，轴线从市井切换为国家礼仪；这是南段最重要的‘门’的转场。",
+      look: "城楼、箭楼、前门大街。",
+      tip: "傍晚亮灯后更适合拍照；周边人流大，注意逆行与共享单车。"
+    },
+    {
+      id: "square", no: 6, name: "天安门广场及建筑群", short: "天安门广场", en: "Tiananmen Square",
+      km: 6.65, dwell: 15, openness: 5, axisSense: 4, section: "II", labelRow: 1,
+      role: "国家广场 / 最大音量",
+      detail: "从正阳门进入广场，空间突然放大到极限。人民英雄纪念碑、人民大会堂、国家博物馆把轴线围合成一个巨大的‘公共客厅’。",
+      look: "人民英雄纪念碑、广场中轴、国家博物馆。",
+      tip: "需安检，预留 10–15 分钟；看升旗需更早到，节假日人流极大。"
+    },
+    {
+      id: "shejitan", no: 7, name: "社稷坛", short: "社稷坛", en: "Altar of Land and Grain",
+      km: 7.30, dwell: 20, openness: 3, axisSense: 2, section: "III", labelRow: 0,
+      role: "西侧支线 / 社稷",
+      detail: "从广场西北侧进入中山公园，围合的坛庙空间把广场的‘大’收成‘静’。社稷坛的五色土是另一种国家叙事，轴线感在这里再次下探。",
+      look: "社稷坛、五色土、中山公园。",
+      tip: "与太庙对称安排，但两者分居东西，需两次横穿；先西后东更顺。"
+    },
+    {
+      id: "taimiao", no: 8, name: "太庙", short: "太庙", en: "Imperial Ancestral Temple",
+      km: 8.40, dwell: 20, openness: 2, axisSense: 2, section: "III", labelRow: 1,
+      role: "东侧支线 / 祖庙",
+      detail: "从社稷坛横穿天安门区域到东侧太庙，空间再次收进柏树林。祖庙的纵深与广场的开阔形成强烈对比；这是全线最明显的一次‘左右换边’。",
+      look: "太庙享殿、劳动人民文化宫。",
+      tip: "太庙与社稷坛之间步行约 16 分钟，注意长安街过街等待。"
+    },
+    {
+      id: "jinshuiqiao", no: 9, name: "外金水桥", short: "外金水桥", en: "Outer Golden Water Bridges",
+      km: 9.00, dwell: 5, openness: 2, axisSense: 4, section: "III", labelRow: 2,
+      role: "礼仪桥梁 / 过门",
+      detail: "回到天安门前，金水桥把广场的辽阔压缩成一条跨水的礼仪通道。桥面很窄，视线被华表与门楼夹住，是进入宫门序列前的最后一次‘收’。",
+      look: "金水桥、华表、石狮。",
+      tip: "拍照停留 5 分钟即可，不要堵塞通道；这里也是全线有效步速最慢的一段起点。"
+    },
+    {
+      id: "tiananmen", no: 10, name: "天安门", short: "天安门", en: "Tiananmen",
+      km: 9.15, dwell: 10, openness: 3, axisSense: 5, section: "III", labelRow: 0,
+      role: "皇城正门 / 国家象征",
+      detail: "从金水桥到天安门，是从‘公共广场’进入‘国家门面’的最后一步。门洞把视线收成一条线，穿过之后就进入宫城序列。",
+      look: "城楼、门洞、华表。",
+      tip: "安检严格，证件与预约要求以官方为准；不要在门洞长时间停留。"
+    },
+    {
+      id: "duanmen", no: 11, name: "端门", short: "端门", en: "Duanmen",
+      km: 9.50, dwell: 5, openness: 1, axisSense: 4, section: "III", labelRow: 1,
+      role: "仪门 / 收窄",
+      detail: "端门是宫城前的最后一道仪门。空间被压到最窄，声音也被门洞吸走，为午门后的放大做铺垫；这是全轴‘收’的极限。",
+      look: "端门、午门方向。",
+      tip: "不宜久留，5 分钟感受‘收’的极限；继续向北进入午门检票。"
+    },
+    {
+      id: "gugong", no: 12, name: "故宫", short: "故宫", en: "Forbidden City",
+      km: 10.55, dwell: 90, openness: 4, axisSense: 5, section: "IV", labelRow: 0,
+      role: "宫城 / 长音",
+      detail: "午门进、神武门出，是全线最长的一段‘长音’。三大殿的院落序列把轴线变成一种仪式性的步行：每过一道门，空间放大一次，再收一次。",
+      look: "午门、太和殿、乾清宫、神武门。",
+      tip: "必须提前预约；南进北出；至少 90 分钟。把这里安排在路线中段，避免从景山折返。"
+    },
+    {
+      id: "jingshan", no: 13, name: "景山", short: "景山", en: "Jingshan",
+      km: 11.45, dwell: 25, openness: 3, axisSense: 5, section: "IV", labelRow: 0,
+      role: "制高点 / 第一次俯瞰",
+      detail: "从神武门出来，登上景山万春亭，第一次把刚刚走过的整条轴线尽收眼底。空间从‘穿行’变成‘观看’，这是全曲唯一的全景和弦。",
+      look: "万春亭、寿皇殿、故宫全景。",
+      tip: "日落前 1 小时最佳；登顶约 15 分钟，预留 25 分钟。"
+    },
+    {
+      id: "wanningqiao", no: 14, name: "万宁桥", short: "万宁桥", en: "Wanning Bridge",
+      km: 12.70, dwell: 5, openness: 1, axisSense: 4, section: "IV", labelRow: 1,
+      role: "桥 / 弱拍",
+      detail: "从景山向北，空间突然收进一座古桥。桥面与河道把中轴的宏大叙事压回日常尺度，像乐曲结尾前的弱拍。",
+      look: "桥体、镇水兽、通惠河遗址。",
+      tip: "停留 5 分钟，注意来往车辆；桥面较窄，不要站在路中拍照。"
+    },
+    {
+      id: "zhonggulou", no: 15, name: "钟鼓楼", short: "钟鼓楼", en: "Bell and Drum Towers",
+      km: 13.25, dwell: 30, openness: 2, axisSense: 3, section: "IV", labelRow: 0,
+      role: "终点 / 时间秩序",
+      detail: "钟鼓楼是全线的时间起点，也是这条南→北路线的终点。登楼回望，轴线在脚下消失，但‘时间’重新出现。",
+      look: "钟楼、鼓楼、时间的故事展。",
+      tip: "建议 16:30 前登楼；鼓楼展陈约 30 分钟；地铁 8 号线什刹海站。"
+    }
+  ];
+
+  const SEGMENTS = [
+    {
+      id: "s1", no: 1, from: "yongdingmen", to: "xiannongtan", distance: 1150, walk: 16,
+      friction: "低", frictionScore: 1, spatial: "城门广场 → 坛庙支线",
+      detail: "从永定门向西转入先农坛，空间从开阔的城门广场收进林荫与围墙。第一次离开中轴主线，也是第一次感到‘支线’的存在。",
+      tip: "沿永定门内大街西侧步行，过街注意车流；这段路适合作为热身。"
+    },
+    {
+      id: "s2", no: 2, from: "xiannongtan", to: "tiantan", distance: 1900, walk: 28,
+      friction: "中", frictionScore: 3, spatial: "坛庙支线 → 另一片坛庙",
+      detail: "从先农坛东行，穿过永定门内大街，天坛的围墙逐渐出现。两座坛庙东西对望，中间隔着的正是中轴主线；这是一段‘横向’的行走。",
+      tip: "这段路较长，可在天桥站附近补水；天坛南门进、东门出更顺。"
+    },
+    {
+      id: "s3", no: 3, from: "tiantan", to: "southroad", distance: 1600, walk: 24,
+      friction: "中", frictionScore: 3, spatial: "坛庙宇宙 → 御道",
+      detail: "从天坛西门回到中轴，空间从‘坛庙宇宙’重新收束为一条道路。考古展示把历史层位直接铺在脚下，节奏从横向漫游回到纵向。",
+      tip: "从天坛西门出，沿天桥南大街向北；这段是南段最容易被忽略的转场。"
+    },
+    {
+      id: "s4", no: 4, from: "southroad", to: "zhengyangmen", distance: 1250, walk: 15,
+      friction: "低", frictionScore: 2, spatial: "御道 → 城门",
+      detail: "前门大街的步行街让节奏变快，商铺与人流把轴线填满。正阳门在前方逐渐放大，是最典型的‘门’的收束。",
+      tip: "傍晚亮灯后更好看；人流大，注意背包与逆行。"
+    },
+    {
+      id: "s5", no: 5, from: "zhengyangmen", to: "square", distance: 750, walk: 12,
+      friction: "高", frictionScore: 4, spatial: "城门 → 国家广场",
+      detail: "穿过正阳门门洞，空间突然放大。安检、人流、拍照会显著拖慢速度，这是全线‘摩擦’最高的段落之一；距离不远，时间却不短。",
+      tip: "预留安检时间；升旗/节假日人流极大，建议避开整点。"
+    },
+    {
+      id: "s6", no: 6, from: "square", to: "shejitan", distance: 650, walk: 12,
+      friction: "高", frictionScore: 4, spatial: "国家广场 → 西侧坛庙",
+      detail: "从广场西北侧穿过长安街，进入中山公园。一次过街把‘国家广场’切换成‘市民公园’，节奏从宏大转为安静。",
+      tip: "长安街过街等待较长，预留 5 分钟；先西后东可减少重复过街。"
+    },
+    {
+      id: "s7", no: 7, from: "shejitan", to: "taimiao", distance: 1100, walk: 16,
+      friction: "中", frictionScore: 3, spatial: "西侧坛庙 → 东侧祖庙",
+      detail: "从西侧社稷坛横穿天安门区域到东侧太庙，是全线最明显的一次‘左右换边’。两座坛庙对称布局，却在步行上需要一次横穿。",
+      tip: "建议先社稷坛后太庙，避免重复过街；这段会打乱‘直线感’。"
+    },
+    {
+      id: "s8", no: 8, from: "taimiao", to: "jinshuiqiao", distance: 600, walk: 10,
+      friction: "中", frictionScore: 3, spatial: "东侧祖庙 → 礼仪桥",
+      detail: "从太庙南门回到长安街，再进入天安门区域。空间从柏树林的静谧突然切换到游客密集的安检口，节奏被外部规则重新定义。",
+      tip: "带好证件，预留安检；这段是‘静 → 闹’的急转。"
+    },
+    {
+      id: "s9", no: 9, from: "jinshuiqiao", to: "tiananmen", distance: 150, walk: 4,
+      friction: "极高", frictionScore: 5, spatial: "礼仪桥 → 皇城正门",
+      detail: "距离最短的一段，却是全线最慢的一段。150 米的桥面被拍照、安检和人流切碎，像乐曲里的一个延长号；它证明‘距离’不等于‘时间’。",
+      tip: "不要在此停留过久；拍照让出通道。若赶时间，这段仍要预留 4 分钟。"
+    },
+    {
+      id: "s10", no: 10, from: "tiananmen", to: "duanmen", distance: 350, walk: 6,
+      friction: "高", frictionScore: 4, spatial: "皇城正门 → 仪门",
+      detail: "穿过天安门门洞，进入皇城序列。空间迅速收窄，端门在前方形成第二道门框，视线被一层层门洞套住。",
+      tip: "继续向北，端门不宜久留；注意门洞内的人流方向。"
+    },
+    {
+      id: "s11", no: 11, from: "duanmen", to: "gugong", distance: 1050, walk: 16,
+      friction: "中", frictionScore: 3, spatial: "仪门 → 宫城",
+      detail: "从端门到午门，是进入故宫前的最后一段。午门的凹形广场把空间压到最低，然后突然放大为三大殿院落。",
+      tip: "午门检票；故宫需提前预约。把这里作为全轴路线的中段锚点。"
+    },
+    {
+      id: "s12", no: 12, from: "gugong", to: "jingshan", distance: 900, walk: 12,
+      friction: "低", frictionScore: 1, spatial: "宫城 → 制高点",
+      detail: "从神武门出宫，跨过景山前街进入景山。刚刚经历的长序列被压缩成一次短促的上升，登顶后整条轴线重新展开。",
+      tip: "神武门出，过街进景山南门；这是全轴最重要的‘回望点’。"
+    },
+    {
+      id: "s13", no: 13, from: "jingshan", to: "wanningqiao", distance: 1250, walk: 18,
+      friction: "中", frictionScore: 3, spatial: "制高点 → 桥",
+      detail: "从景山北门下山，沿地安门内大街向北。空间从俯瞰的高度回到街道尺度，万宁桥在前方收成一个小节点。",
+      tip: "地安门路口车流大，注意信号灯；这段适合放慢速度。"
+    },
+    {
+      id: "s14", no: 14, from: "wanningqiao", to: "zhonggulou", distance: 550, walk: 8,
+      friction: "低", frictionScore: 1, spatial: "桥 → 终点",
+      detail: "最后 550 米，鼓楼逐渐占据视线。桥的‘弱拍’之后，钟鼓楼以两座高塔收束全曲。",
+      tip: "终点；建议登鼓楼看展，16:30 前进入。"
+    }
+  ];
+
+  const ROUTES = [
+    {
+      id: "southFamily", name: "南段亲子", tag: "2 小时 04 分 · 3 站 · 坛庙与城门",
+      siteIds: ["yongdingmen", "xiannongtan", "tiantan"], start: "09:00",
+      note: "从永定门到天坛，距离短、停留轻，适合亲子与半日游。天坛东门出，可直接接地铁。"
+    },
+    {
+      id: "midEssence", name: "中段精华", tag: "2 小时 50 分 · 8 站 · 门与广场",
+      siteIds: ["southroad", "zhengyangmen", "square", "shejitan", "taimiao", "jinshuiqiao", "tiananmen", "duanmen"], start: "09:00",
+      note: "从南段道路到端门，集中体验门洞收束、广场放大、坛庙侧向插入；适合第一次来北京、时间有限的人。"
+    },
+    {
+      id: "northHalf", name: "北段半日", tag: "3 小时 08 分 · 4 站 · 宫城与俯瞰",
+      siteIds: ["gugong", "jingshan", "wanningqiao", "zhonggulou"], start: "13:00",
+      note: "故宫午门进、神武门出，接景山俯瞰，最后到钟鼓楼。把最长的停留放在中段，避免北端折返。"
+    },
+    {
+      id: "full", name: "全轴一日", tag: "8 小时 42 分 · 15 站 · 完整乐章",
+      siteIds: ["yongdingmen", "xiannongtan", "tiantan", "southroad", "zhengyangmen", "square", "shejitan", "taimiao", "jinshuiqiao", "tiananmen", "duanmen", "gugong", "jingshan", "wanningqiao", "zhonggulou"], start: "08:30",
+      note: "把 15 处遗产点一次走完。需要预约故宫、留出安检与过街时间；适合体力较好、愿意用一整天读城的人。"
+    }
+  ];
+
+  const TOTAL_KM = 13.25;
+  const TOTAL_WALK = 197;
+  const TOTAL_DWELL = 325;
+  const W = 1500, H = 760;
+  const PLOT_LEFT = 74, PLOT_RIGHT = 1464;
+  const AXIS_Y = 510;
+  const WALK_LABEL_Y = 680;
+  const DWELL_SCALE = 2.5;
+  const WALK_SCALE = 5.2;
+  const OPEN_SCALE = 3.2;
+  const X = km => PLOT_LEFT + (km / TOTAL_KM) * (PLOT_RIGHT - PLOT_LEFT);
+  const siteById = Object.fromEntries(SITES.map(s => [s.id, s]));
+  const segById = Object.fromEntries(SEGMENTS.map(s => [s.id, s]));
+  const segFrom = {};
+  const segTo = {};
+  SEGMENTS.forEach(s => { segFrom[s.from] = s; segTo[s.to] = s; });
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  const svg = $("#rhythm");
+  const chartWrap = $("#chartWrap");
+  const tooltip = $("#tooltip");
+  const drawer = $("#drawer");
+  const drawerBody = $("#drawerBody");
+  const drawerKicker = $("#drawerKicker");
+  const stationIndex = $("#stationIndex");
+  const sectionLegend = $("#sectionLegend");
+  const routeGrid = $("#routeGrid");
+
+  /* ============================================================
+     1. 派生数据
+     ============================================================ */
+
+  const tempoFor = pace => {
+    if (pace <= 1.35) return { name: "快板", en: "Allegro", color: "#2f7d74" };
+    if (pace <= 1.55) return { name: "行板", en: "Andante", color: "#a77f2f" };
+    if (pace <= 1.80) return { name: "慢板", en: "Adagio", color: "#b24a3a" };
+    return { name: "极慢", en: "Lento", color: "#8f2b20" };
+  };
+
+  SEGMENTS.forEach(seg => {
+    seg.pace = Math.round((seg.walk / (seg.distance / 100)) * 100) / 100;
+    seg.tempo = tempoFor(seg.pace);
+    seg.angle = Math.atan2(seg.walk * WALK_SCALE, X(siteById[seg.to].km) - X(siteById[seg.from].km)) * 180 / Math.PI;
+  });
+
+  SITES.forEach(site => {
+    site.sectionObj = SECTIONS[site.section];
+    site.width = 9 + site.openness * OPEN_SCALE;
+    site.barH = Math.max(9, site.dwell * DWELL_SCALE);
+    site.barTop = AXIS_Y - site.barH;
+    site.senseY = 205 - (site.axisSense - 1) * 14;
+    site.x = X(site.km);
+  });
+
+  const sectionStats = {};
+  Object.keys(SECTIONS).forEach(key => {
+    const sites = SITES.filter(s => s.section === key);
+    const segs = SEGMENTS.filter(s => siteById[s.to].section === key);
+    sectionStats[key] = {
+      sites,
+      segs,
+      dwell: sites.reduce((sum, s) => sum + s.dwell, 0),
+      walk: segs.reduce((sum, s) => sum + s.walk, 0),
+      km: sites.length ? sites[sites.length - 1].km - sites[0].km : 0
+    };
+  });
+
+  const routeStats = route => {
+    const sites = route.siteIds.map(id => siteById[id]).sort((a, b) => a.km - b.km);
+    const first = sites[0], last = sites[sites.length - 1];
+    const segs = [];
+    for (let i = 0; i < sites.length - 1; i++) {
+      const from = sites[i], to = sites[i + 1];
+      const seg = SEGMENTS.find(s => s.from === from.id && s.to === to.id);
+      if (seg) segs.push(seg);
+    }
+    const walk = segs.reduce((sum, s) => sum + s.walk, 0);
+    const dwell = sites.reduce((sum, s) => sum + s.dwell, 0);
+    return {
+      sites, segs, first, last,
+      km: Math.round((last.km - first.km) * 100) / 100,
+      walk, dwell, total: walk + dwell
+    };
+  };
+
+  const fmtTime = minutes => {
+    const h = Math.floor(minutes / 60);
+    const m = Math.round(minutes % 60);
+    return String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+  };
+
+  const addMinutes = (time, min) => {
+    const [h, m] = time.split(":").map(Number);
+    return fmtTime(h * 60 + m + min);
+  };
+
+  const totalTimeText = mins => {
+    const h = Math.floor(mins / 60);
+    const m = Math.round(mins % 60);
+    return h + " 小时 " + String(m).padStart(2, "0") + " 分";
+  };
+
+  const totalTimeShort = mins => {
+    const h = Math.floor(mins / 60);
+    const m = Math.round(mins % 60);
+    return h + "h" + String(m).padStart(2, "0");
+  };
+
+  /* ============================================================
+     2. 渲染：图例、站点条、路线卡
+     ============================================================ */
+
+  function renderSectionLegend() {
+    Object.values(SECTIONS).forEach(sec => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.dataset.section = sec.id;
+      btn.innerHTML = '<span class="dot" style="background:' + sec.color + '"></span>' + sec.roman + " " + sec.name;
+      sectionLegend.appendChild(btn);
+    });
+  }
+
+  function renderStationIndex() {
+    stationIndex.innerHTML = SITES.map(site =>
+      '<button class="station-chip" type="button" data-site="' + site.id + '">' +
+        '<span class="chip-top"><span>' + String(site.no).padStart(2, "0") + '</span><span>' + site.km.toFixed(2) + ' km</span></span>' +
+        "<strong>" + site.short + "</strong>" +
+        '<span class="chip-meta">停留 ' + site.dwell + "′ · 开合 " + site.openness + "/5</span>" +
+      "</button>"
+    ).join("");
+  }
+
+  function renderRouteCards() {
+    routeGrid.innerHTML = ROUTES.map((route, index) => {
+      const st = routeStats(route);
+      const section = st.first.sectionObj;
+      return '<button class="route-card" type="button" data-route="' + route.id + '" style="--section-color:' + section.color + '">' +
+        '<span class="route-card-top"><span>R.' + String(index + 1).padStart(2, "0") + '</span><span>' + st.sites.length + " 站</span></span>" +
+        "<h3>" + route.name + "</h3>" +
+        '<span class="route-tag">' + route.tag + "</span>" +
+        '<span class="route-line">' + st.sites.map(s => '<i style="background:' + s.sectionObj.color + '"></i>').join("") + "</span>" +
+        '<span class="route-stats">' +
+          '<span class="route-stat"><strong>' + st.km.toFixed(2) + '</strong><span>KM</span></span>' +
+          '<span class="route-stat"><strong>' + totalTimeShort(st.total) + '</strong><span>总时长</span></span>' +
+          '<span class="route-stat"><strong>' + st.walk + "′</strong><span>纯步行</span></span>" +
+        "</span>" +
+      "</button>";
+    }).join("");
+  }
+
+  /* ============================================================
+     3. 渲染：主图
+     ============================================================ */
+
+  function renderChart() {
+    const sectionBands = Object.values(SECTIONS).map(sec => {
+      const stats = sectionStats[sec.id];
+      const x0 = X(stats.sites[0].km) - 8;
+      const x1 = X(stats.sites[stats.sites.length - 1].km) + 8;
+      return '<g class="section" data-section="' + sec.id + '">' +
+        '<rect class="section-band" x="' + x0 + '" y="28" width="' + (x1 - x0) + '" height="707" fill="' + sec.color + '"></rect>' +
+        '<line class="section-rule" x1="' + x0 + '" y1="28" x2="' + x1 + '" y2="28" stroke="' + sec.color + '"></line>' +
+        '<text class="section-title-text" x="' + (x0 + 2) + '" y="705">' + sec.roman + " / " + stats.sites.length + " 站 · " + sec.range + "</text>" +
+        '<text class="section-name" x="' + (x0 + 2) + '" y="721">' + sec.name + "</text>" +
+        "</g>";
+    }).join("");
+
+    const grid = [30, 60, 90].map(v => {
+      const y = AXIS_Y - v * DWELL_SCALE;
+      return '<line class="grid-line" x1="' + (PLOT_LEFT - 8) + '" y1="' + y + '" x2="' + (PLOT_RIGHT + 8) + '" y2="' + y + '"></line>' +
+        '<text class="grid-text" x="' + (PLOT_LEFT - 16) + '" y="' + (y + 3) + '" text-anchor="end">' + v + "′</text>";
+    }).join("");
+
+    const distanceTicks = [];
+    for (let km = 0; km <= 12; km += 2) {
+      const x = X(km);
+      distanceTicks.push('<line x1="' + x + '" y1="740" x2="' + x + '" y2="747" stroke="#b5b5b5" stroke-width=".8"></line>' +
+        '<text class="axis-note" x="' + x + '" y="756" text-anchor="middle">' + km + "</text>");
+    }
+    distanceTicks.push('<line x1="' + X(13.25) + '" y1="740" x2="' + X(13.25) + '" y2="747" stroke="#b5b5b5" stroke-width=".8"></line>' +
+      '<text class="axis-note" x="' + X(13.25) + '" y="756" text-anchor="end">13.25 km</text>');
+
+    const sensePath = SITES.map((s, i) => (i === 0 ? "M" : "L") + s.x + "," + s.senseY).join(" ");
+    const senseArea = sensePath + " L" + SITES[SITES.length - 1].x + ",215 L" + SITES[0].x + ",215 Z";
+
+    const sense = '<path class="sense-area" d="' + senseArea + '"></path>' +
+      '<path class="sense-line" d="' + sensePath + '"></path>' +
+      SITES.map(s => '<circle class="sense-dot" data-site="' + s.id + '" cx="' + s.x + '" cy="' + s.senseY + '" r="2.4" fill="' + s.sectionObj.color + '"></circle>').join("") +
+      '<text class="sense-label" x="' + (PLOT_LEFT - 16) + '" y="' + (SITES.find(s => s.axisSense === 5).senseY + 3) + '" text-anchor="end">强</text>' +
+      '<text class="sense-label" x="' + (PLOT_LEFT - 16) + '" y="213" text-anchor="end">弱</text>' +
+      '<text class="axis-note" x="' + PLOT_LEFT + '" y="233">轴线感 1–5 · 站在此处能否读到连续对轴</text>';
+
+    const bars = SITES.map(site => {
+      const w = site.width;
+      const x = site.x - w / 2;
+      return '<g class="dwell-bar" data-site="' + site.id + '" tabindex="0" role="button" aria-label="' + site.name + "，建议停留 " + site.dwell + " 分钟，空间开合 " + site.openness + "，轴线感 " + site.axisSense + '">' +
+        '<rect class="bar-body" x="' + x + '" y="' + site.barTop + '" width="' + w + '" height="' + site.barH + '" fill="' + site.sectionObj.color + '"></rect>' +
+        (site.dwell >= 15 ? '<text class="dwell-value" x="' + site.x + '" y="' + (site.barTop - 6) + '">' + site.dwell + "′</text>" : "") +
+      "</g>";
+    }).join("");
+
+    const walks = SEGMENTS.map(seg => {
+      const from = siteById[seg.from], to = siteById[seg.to];
+      const x0 = X(from.km), x1 = X(to.km);
+      const h = seg.walk * WALK_SCALE;
+      const d = "M" + x0 + "," + AXIS_Y + " L" + x1 + "," + (AXIS_Y + h) + " L" + x1 + "," + AXIS_Y + " Z";
+      const midX = (x0 + x1) / 2;
+      const slow = seg.pace > 1.55;
+      return '<g class="walk-seg" data-seg="' + seg.id + '" tabindex="0" role="button" aria-label="' + from.name + " 到 " + to.name + "，" + (seg.distance / 1000).toFixed(2) + " 公里，" + seg.walk + " 分钟，有效步速 " + seg.pace + '">' +
+        '<path class="walk-face" d="' + d + '" fill="' + to.sectionObj.color + '"></path>' +
+        '<path class="walk-edge" d="M' + x0 + "," + AXIS_Y + " L" + x1 + "," + (AXIS_Y + h) + '" stroke="' + to.sectionObj.color + '"></path>' +
+        '<line x1="' + x1 + '" y1="' + AXIS_Y + '" x2="' + x1 + '" y2="' + (AXIS_Y + h) + '" stroke="' + to.sectionObj.color + '" stroke-width=".8" opacity=".28"></line>' +
+        '<line x1="' + midX + '" y1="' + (WALK_LABEL_Y - 8) + '" x2="' + midX + '" y2="' + (WALK_LABEL_Y - 2) + '" stroke="' + to.sectionObj.color + '" stroke-width=".8" opacity=".55"></line>' +
+        '<text class="walk-label ' + (slow ? "is-slow" : "") + '" x="' + midX + '" y="' + WALK_LABEL_Y + '">' + seg.walk + "′</text>" +
+      "</g>";
+    }).join("");
+
+    const axis = '<line class="axis-line" x1="' + (PLOT_LEFT - 18) + '" y1="' + AXIS_Y + '" x2="' + (PLOT_RIGHT + 10) + '" y2="' + AXIS_Y + '"></line>' +
+      '<text class="axis-cap" x="' + (PLOT_LEFT - 22) + '" y="' + (AXIS_Y + 16) + '" text-anchor="end">S</text>' +
+      '<text class="axis-cap" x="' + (PLOT_RIGHT + 14) + '" y="' + (AXIS_Y + 16) + '" text-anchor="start">N</text>' +
+      SITES.map(site => '<line class="station-tick" x1="' + site.x + '" y1="' + (AXIS_Y - 5) + '" x2="' + site.x + '" y2="' + (AXIS_Y + 5) + '"></line>').join("") +
+      SITES.map(site => '<circle class="station-dot" data-site="' + site.id + '" cx="' + site.x + '" cy="' + AXIS_Y + '" r="' + (3.8 + site.axisSense * 1.15) + '" stroke="' + site.sectionObj.color + '"></circle>').join("");
+
+    const labels = SITES.map(site => {
+      const rowY = 56 + site.labelRow * 24;
+      const anchor = site.x < PLOT_LEFT + 32 ? "start" : (site.x > PLOT_RIGHT - 32 ? "end" : "middle");
+      return '<g class="station-label" data-site="' + site.id + '" tabindex="0" role="button" aria-label="' + site.name + '">' +
+        '<rect class="label-hit" x="' + (site.x - 45) + '" y="' + (rowY - 12) + '" width="90" height="24" rx="2"></rect>' +
+        '<text class="site-label" x="' + site.x + '" y="' + rowY + '" text-anchor="' + anchor + '">' +
+          '<tspan class="s-no">' + String(site.no).padStart(2, "0") + "</tspan><tspan dx=\"5\">" + site.short + "</tspan></text>" +
+        '<line x1="' + site.x + '" y1="' + (rowY + 8) + '" x2="' + site.x + '" y2="' + (rowY + 13) + '" stroke="' + site.sectionObj.color + '" stroke-width="1"></line>' +
+      "</g>";
+    }).join("");
+
+    const density = '<path class="density-bracket" d="M' + X(9.0) + ',252 L' + X(9.0) + ',262 L' + X(10.55) + ',262 L' + X(10.55) + ',252"></path>' +
+      '<text class="density-text" x="' + ((X(9.0) + X(10.55)) / 2) + '" y="244">1.55 km / 4 站 · 连续收放</text>';
+
+    svg.innerHTML =
+      "<defs>" +
+        '<linearGradient id="senseGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#111" stop-opacity=".08"/><stop offset="1" stop-color="#111" stop-opacity="0"/></linearGradient>' +
+      "</defs>" +
+      '<g class="section-bands">' + sectionBands + "</g>" +
+      '<g class="distance-grid">' + distanceTicks.join("") + "</g>" +
+      '<g class="dwell-grid">' + grid + "</g>" +
+      '<g class="sense-layer">' + sense + "</g>" +
+      '<g class="walk-layer">' + walks + "</g>" +
+      '<g class="bar-layer">' + bars + "</g>" +
+      '<g class="axis-layer">' + axis + "</g>" +
+      '<g class="station-labels">' + labels + "</g>" +
+      '<g class="annotation-layer">' + density + "</g>" +
+      '<g id="selectionLayer"></g>';
+  }
+
+  /* ============================================================
+     4. 状态与交互
+     ============================================================ */
+
+  let state = { type: "overview", id: null };
+
+  const setState = next => {
+    state = Object.assign({ type: "overview", id: null }, next);
+    applyState();
+    updateChips();
+  };
+
+  const resetState = () => {
+    setState({ type: "overview" });
+    closeDrawer();
+    svg.querySelector("#selectionLayer").innerHTML = "";
+  };
+
+  function selectSite(id, open = true) {
+    if (!siteById[id]) return;
+    setState({ type: "site", id });
+    drawSiteSelection(siteById[id]);
+    if (open) openSiteDrawer(siteById[id]);
+  }
+
+  function selectSegment(id, open = true) {
+    if (!segById[id]) return;
+    setState({ type: "segment", id });
+    drawSegmentSelection(segById[id]);
+    if (open) openSegmentDrawer(segById[id]);
+  }
+
+  function selectSection(id, open = true) {
+    if (!SECTIONS[id]) return;
+    setState({ type: "section", id });
+    drawSectionSelection(SECTIONS[id]);
+    if (open) openSectionDrawer(SECTIONS[id]);
+  }
+
+  function selectRoute(id, open = true) {
+    const route = ROUTES.find(r => r.id === id);
+    if (!route) return;
+    setState({ type: "route", id });
+    drawRouteSelection(route);
+    if (open) openRouteDrawer(route);
+  }
+
+  function applyState() {
+    const siteIds = new Set();
+    const segIds = new Set();
+    let sectionId = null;
+
+    if (state.type === "site") {
+      const s = siteById[state.id];
+      siteIds.add(s.id);
+      if (segFrom[s.id]) segIds.add(segFrom[s.id].id);
+      if (segTo[s.id]) segIds.add(segTo[s.id].id);
+      sectionId = s.section;
+    } else if (state.type === "segment") {
+      const s = segById[state.id];
+      segIds.add(s.id);
+      siteIds.add(s.from);
+      siteIds.add(s.to);
+      sectionId = siteById[s.to].section;
+    } else if (state.type === "section") {
+      const st = sectionStats[state.id];
+      st.sites.forEach(s => siteIds.add(s.id));
+      st.segs.forEach(s => segIds.add(s.id));
+      sectionId = state.id;
+    } else if (state.type === "route") {
+      const route = ROUTES.find(r => r.id === state.id);
+      const st = routeStats(route);
+      st.sites.forEach(s => siteIds.add(s.id));
+      st.segs.forEach(s => segIds.add(s.id));
+    }
+
+    const focused = state.type !== "overview";
+    $$(".dwell-bar", svg).forEach(el => {
+      const on = siteIds.has(el.dataset.site);
+      el.classList.toggle("is-selected", on);
+      el.classList.toggle("is-dimmed", focused && !on);
+    });
+    $$(".station-label", svg).forEach(el => {
+      const on = siteIds.has(el.dataset.site);
+      el.classList.toggle("is-selected", on);
+      el.classList.toggle("is-dimmed", focused && !on);
+    });
+    $$(".station-dot", svg).forEach(el => {
+      const on = siteIds.has(el.dataset.site);
+      el.classList.toggle("is-selected", on);
+      el.classList.toggle("is-dimmed", focused && !on);
+    });
+    $$(".sense-dot", svg).forEach(el => {
+      const on = siteIds.has(el.dataset.site);
+      el.classList.toggle("is-selected", on);
+      el.classList.toggle("is-dimmed", focused && !on);
+    });
+    $$(".walk-seg", svg).forEach(el => {
+      const on = segIds.has(el.dataset.seg);
+      el.classList.toggle("is-selected", on);
+      el.classList.toggle("is-dimmed", focused && !on);
+    });
+    $$(".walk-label", svg).forEach(el => {
+      const on = el.closest(".walk-seg") && segIds.has(el.closest(".walk-seg").dataset.seg);
+      el.classList.toggle("is-dimmed", focused && !on);
+    });
+    $$(".section", svg).forEach(el => {
+      const on = !sectionId || el.dataset.section === sectionId;
+      el.style.opacity = focused ? (on ? "1" : ".35") : "1";
+    });
+    $$(".section-legend button").forEach(btn => {
+      btn.classList.toggle("is-active", state.type === "section" && btn.dataset.section === state.id);
+    });
+    $$(".route-card").forEach(btn => {
+      btn.classList.toggle("is-active", state.type === "route" && btn.dataset.route === state.id);
+    });
+  }
+
+  function updateChips() {
+    $$(".station-chip").forEach(chip => {
+      chip.classList.toggle("is-active", state.type === "site" && chip.dataset.site === state.id);
+    });
+  }
+
+  function clearSelectionLayer() {
+    const layer = svg.querySelector("#selectionLayer");
+    if (layer) layer.innerHTML = "";
+  }
+
+  function drawSiteSelection(site) {
+    clearSelectionLayer();
+    const layer = svg.querySelector("#selectionLayer");
+    layer.innerHTML = '<line class="selection-line" x1="' + site.x + '" y1="130" x2="' + site.x + '" y2="735"></line>' +
+      '<circle class="selection-ring" cx="' + site.x + '" cy="' + AXIS_Y + '" r="' + (7 + site.axisSense * 1.2) + '"></circle>';
+  }
+
+  function drawSegmentSelection(seg) {
+    clearSelectionLayer();
+    const layer = svg.querySelector("#selectionLayer");
+    const from = siteById[seg.from], to = siteById[seg.to];
+    const x0 = X(from.km), x1 = X(to.km);
+    layer.innerHTML = '<line class="selection-line" x1="' + x0 + '" y1="130" x2="' + x0 + '" y2="735"></line>' +
+      '<line class="selection-line" x1="' + x1 + '" y1="130" x2="' + x1 + '" y2="735"></line>';
+  }
+
+  function drawSectionSelection(sec) {
+    clearSelectionLayer();
+    const stats = sectionStats[sec.id];
+    const x0 = X(stats.sites[0].km), x1 = X(stats.sites[stats.sites.length - 1].km);
+    const layer = svg.querySelector("#selectionLayer");
+    layer.innerHTML = '<line class="selection-line" x1="' + x0 + '" y1="130" x2="' + x0 + '" y2="735"></line>' +
+      '<line class="selection-line" x1="' + x1 + '" y1="130" x2="' + x1 + '" y2="735"></line>';
+  }
+
+  function drawRouteSelection(route) {
+    clearSelectionLayer();
+    const st = routeStats(route);
+    const x0 = X(st.first.km), x1 = X(st.last.km);
+    const layer = svg.querySelector("#selectionLayer");
+    layer.innerHTML = '<line class="selection-line" x1="' + x0 + '" y1="130" x2="' + x0 + '" y2="735"></line>' +
+      '<line class="selection-line" x1="' + x1 + '" y1="130" x2="' + x1 + '" y2="735"></line>';
+  }
+
+  /* ============================================================
+     5. 提示框
+     ============================================================ */
+
+  function showTip(html, clientX, clientY) {
+    const rect = chartWrap.getBoundingClientRect();
+    const x = Math.max(80, Math.min(rect.width - 80, clientX - rect.left));
+    const y = Math.max(40, clientY - rect.top);
+    tooltip.innerHTML = html;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y + "px";
+    tooltip.classList.add("visible");
+  }
+
+  function hideTip() {
+    tooltip.classList.remove("visible");
+  }
+
+  function siteTip(site) {
+    return "<strong>" + site.name + "</strong>停留 " + site.dwell + "′ · 开合 " + site.openness + "/5 · 轴线感 " + site.axisSense + "/5" +
+      '<div class="muted">点击查看站点详情</div>';
+  }
+
+  function segTip(seg) {
+    const from = siteById[seg.from], to = siteById[seg.to];
+    return "<strong>" + from.name + " → " + to.name + "</strong>" +
+      (seg.distance / 1000).toFixed(2) + " km · " + seg.walk + "′ · " + seg.pace + " min/100m" +
+      '<div class="muted">' + seg.tempo.name + " · 点击查看转场详情</div>";
+  }
+
+  /* ============================================================
+     6. 抽屉详情
+     ============================================================ */
+
+  function openDrawer(side = "right") {
+    drawer.classList.toggle("left", side === "left");
+    drawer.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+    drawerBody.scrollTop = 0;
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove("open");
+    drawer.setAttribute("aria-hidden", "true");
+  }
+
+  function openSiteDrawer(site) {
+    drawerKicker.textContent = "STATION " + String(site.no).padStart(2, "0") + " / " + site.sectionObj.roman;
+    const inSeg = segTo[site.id];
+    const outSeg = segFrom[site.id];
+    const nav = [];
+    if (inSeg) nav.push('<button type="button" data-seg="' + inSeg.id + '">← 上一段<span>' + siteById[inSeg.from].short + " → " + site.short + " · " + inSeg.walk + "′</span></button>");
+    if (outSeg) nav.push('<button type="button" data-seg="' + outSeg.id + '">下一段 →<span>' + site.short + " → " + siteById[outSeg.to].short + " · " + outSeg.walk + "′</span></button>");
+    drawerBody.innerHTML =
+      "<h2>" + site.name + "</h2>" +
+      '<p class="drawer-sub">' + site.en + " · " + site.km.toFixed(2) + " km · 第 " + site.no + " 站</p>" +
+      '<div class="metric-grid">' +
+        '<div class="metric-cell"><strong>' + site.dwell + "<small>min</small></strong><span>建议停留</span></div>" +
+        '<div class="metric-cell"><strong>' + site.openness + "<small>/5</small></strong><span>空间开合</span></div>" +
+        '<div class="metric-cell"><strong>' + site.axisSense + "<small>/5</small></strong><span>轴线感</span></div>" +
+        '<div class="metric-cell"><strong>' + site.km.toFixed(2) + "<small>km</small></strong><span>累计距离</span></div>" +
+      "</div>" +
+      '<div class="tag-row"><span class="tag is-accent">' + site.sectionObj.roman + " " + site.sectionObj.name + '</span><span class="tag">' + site.role + "</span></div>" +
+      '<p class="drawer-lede">' + site.detail + "</p>" +
+      "<h4>怎么看 / LOOK</h4><p>" + site.look + "</p>" +
+      '<div class="route-tip"><strong>路线提示 / ROUTE TIP</strong><p>' + site.tip + "</p></div>" +
+      '<h4>前后衔接 / CONNECTIONS</h4><div class="drawer-nav">' + nav.join("") + "</div>";
+    openDrawer(site.x > W / 2 ? "left" : "right");
+  }
+
+  function openSegmentDrawer(seg) {
+    const from = siteById[seg.from], to = siteById[seg.to];
+    drawerKicker.textContent = "WALK " + String(seg.no).padStart(2, "0") + " / " + from.sectionObj.roman + "→" + to.sectionObj.roman;
+    drawerBody.innerHTML =
+      "<h2>" + from.name + " → " + to.name + "</h2>" +
+      '<p class="drawer-sub">' + (seg.distance / 1000).toFixed(2) + " km · " + seg.walk + " min · " + seg.pace + " min/100m</p>" +
+      '<div class="metric-grid">' +
+        '<div class="metric-cell"><strong>' + (seg.distance / 1000).toFixed(2) + "<small>km</small></strong><span>步行距离</span></div>" +
+        '<div class="metric-cell"><strong>' + seg.walk + "<small>min</small></strong><span>建议步行</span></div>" +
+        '<div class="metric-cell"><strong>' + seg.pace + "<small>min</small></strong><span>每 100 m</span></div>" +
+        '<div class="metric-cell"><strong>' + seg.tempo.name + "</strong><span>节奏 · " + seg.tempo.en + "</span></div>" +
+      "</div>" +
+      '<div class="tag-row"><span class="tag is-accent">' + seg.spatial + '</span><span class="tag">摩擦 ' + seg.friction + '</span><span class="tag">斜度 ' + Math.round(seg.angle) + "°</span></div>" +
+      '<p class="drawer-lede">' + seg.detail + "</p>" +
+      "<h4>空间转场 / TRANSITION</h4><p>" + seg.spatial + "。这段的斜度是 " + Math.round(seg.angle) + "°，" + (seg.pace > 1.8 ? "明显偏陡，说明阻力远高于纯步行。" : "处于全线常见区间。") + "</p>" +
+      '<div class="route-tip"><strong>路线提示 / ROUTE TIP</strong><p>' + seg.tip + "</p></div>" +
+      '<h4>两端站点 / ENDS</h4><div class="drawer-nav">' +
+        '<button type="button" data-site="' + from.id + '">← ' + from.name + "<span>停留 " + from.dwell + "′ · 开合 " + from.openness + "/5</span></button>" +
+        '<button type="button" data-site="' + to.id + '">' + to.name + " →<span>停留 " + to.dwell + "′ · 开合 " + to.openness + "/5</span></button>" +
+      "</div>";
+    openDrawer((from.x + to.x) / 2 > W / 2 ? "left" : "right");
+  }
+
+  function openSectionDrawer(sec) {
+    const stats = sectionStats[sec.id];
+    drawerKicker.textContent = "MOVEMENT " + sec.roman + " / " + stats.sites.length + " STATIONS";
+    drawerBody.innerHTML =
+      "<h2>" + sec.name + "</h2>" +
+      '<p class="drawer-sub">' + sec.en + " · " + sec.range + " · " + stats.sites.length + " 站</p>" +
+      '<div class="metric-grid">' +
+        '<div class="metric-cell"><strong>' + stats.km.toFixed(2) + "<small>km</small></strong><span>乐章跨度</span></div>" +
+        '<div class="metric-cell"><strong>' + stats.walk + "<small>min</small></strong><span>乐章内步行</span></div>" +
+        '<div class="metric-cell"><strong>' + stats.dwell + "<small>min</small></strong><span>建议停留</span></div>" +
+        '<div class="metric-cell"><strong>' + (stats.walk + stats.dwell) + "<small>min</small></strong><span>合计</span></div>" +
+      "</div>" +
+      '<div class="tag-row"><span class="tag is-accent">' + sec.roman + " / " + sec.name + '</span><span class="tag">' + sec.range + "</span></div>" +
+      '<p class="drawer-lede">' + sec.desc + "</p>" +
+      '<h4>乐章内站点 / STATIONS</h4><div class="drawer-section-list">' +
+        stats.sites.map(s => '<button type="button" data-site="' + s.id + '">' + String(s.no).padStart(2, "0") + " " + s.name + "<span>" + s.dwell + "′ · 开合 " + s.openness + "/5</span></button>").join("") +
+      "</div>";
+    const mid = (stats.sites[0].x + stats.sites[stats.sites.length - 1].x) / 2;
+    openDrawer(mid > W / 2 ? "left" : "right");
+  }
+
+  function openRouteDrawer(route) {
+    const st = routeStats(route);
+    let cursor = route.start;
+    const schedule = [];
+    st.sites.forEach((site, idx) => {
+      schedule.push('<div class="schedule-row"><span class="time">' + cursor + '</span><span class="place"><b>' + site.name + '</b><small>' + site.role + '</small></span><span class="dur">停留 ' + site.dwell + "′</span></div>");
+      cursor = addMinutes(cursor, site.dwell);
+      if (idx < st.sites.length - 1) {
+        const seg = SEGMENTS.find(s => s.from === site.id && s.to === st.sites[idx + 1].id);
+        if (seg) {
+          schedule.push('<div class="schedule-row is-walk"><span class="time">' + cursor + '</span><span class="place">步行 ' + seg.walk + "′ → " + st.sites[idx + 1].name + '</span><span class="dur">' + (seg.distance / 1000).toFixed(2) + " km</span></div>");
+          cursor = addMinutes(cursor, seg.walk);
+        }
+      }
+    });
+    drawerKicker.textContent = "ROUTE / " + st.sites.length + " STATIONS";
+    drawerBody.innerHTML =
+      "<h2>" + route.name + "</h2>" +
+      '<p class="drawer-sub">' + route.tag + " · 建议 " + route.start + " 出发 · " + cursor + " 结束</p>" +
+      '<div class="metric-grid">' +
+        '<div class="metric-cell"><strong>' + st.km.toFixed(2) + "<small>km</small></strong><span>路线距离</span></div>" +
+        '<div class="metric-cell"><strong>' + st.walk + "<small>min</small></strong><span>纯步行</span></div>" +
+        '<div class="metric-cell"><strong>' + st.dwell + "<small>min</small></strong><span>停留</span></div>" +
+        '<div class="metric-cell"><strong>' + totalTimeText(st.total) + "</strong><span>总时长</span></div>" +
+      "</div>" +
+      '<div class="tag-row"><span class="tag is-accent">' + st.first.name + " → " + st.last.name + '</span><span class="tag">' + st.sites.length + " 站</span><span class=\"tag\">" + (st.km / (st.walk / 60)).toFixed(1) + " km/h</span></div>" +
+      '<p class="drawer-lede">' + route.note + "</p>" +
+      '<div class="route-tip"><strong>产品提示 / PRODUCT</strong><p>这条路线已经包含距离、步行、停留、开合、轴线感与摩擦字段，可直接作为路线规划器的基准方案；实际产品中再叠加开放时间、预约余量与实时人流。</p></div>' +
+      '<h4>逐站时刻 / SCHEDULE</h4><div class="schedule">' + schedule.join("") + "</div>";
+    openDrawer((st.first.x + st.last.x) / 2 > W / 2 ? "left" : "right");
+  }
+
+  /* ============================================================
+     7. 事件
+     ============================================================ */
+
+  svg.addEventListener("click", event => {
+    hideTip();
+    const siteEl = event.target.closest("[data-site]");
+    if (siteEl) { selectSite(siteEl.dataset.site); return; }
+    const segEl = event.target.closest("[data-seg]");
+    if (segEl) { selectSegment(segEl.dataset.seg); return; }
+    const secEl = event.target.closest("[data-section]");
+    if (secEl) { selectSection(secEl.dataset.section); }
+  });
+
+  svg.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const siteEl = event.target.closest("[data-site]");
+    const segEl = event.target.closest("[data-seg]");
+    const secEl = event.target.closest("[data-section]");
+    if (siteEl) { event.preventDefault(); selectSite(siteEl.dataset.site); }
+    else if (segEl) { event.preventDefault(); selectSegment(segEl.dataset.seg); }
+    else if (secEl) { event.preventDefault(); selectSection(secEl.dataset.section); }
+  });
+
+  svg.addEventListener("pointermove", event => {
+    const siteEl = event.target.closest("[data-site]");
+    const segEl = event.target.closest("[data-seg]");
+    if (siteEl) {
+      const site = siteById[siteEl.dataset.site];
+      if (site) showTip(siteTip(site), event.clientX, event.clientY);
+    } else if (segEl) {
+      const seg = segById[segEl.dataset.seg];
+      if (seg) showTip(segTip(seg), event.clientX, event.clientY);
+    } else {
+      hideTip();
+    }
+  });
+
+  svg.addEventListener("pointerleave", hideTip);
+
+  sectionLegend.addEventListener("click", event => {
+    const btn = event.target.closest("[data-section]");
+    if (!btn) return;
+    if (state.type === "section" && state.id === btn.dataset.section) resetState();
+    else selectSection(btn.dataset.section);
+  });
+
+  document.addEventListener("click", event => {
+    const chip = event.target.closest(".station-chip");
+    if (chip) { selectSite(chip.dataset.site); return; }
+    const route = event.target.closest(".route-card");
+    if (route) { selectRoute(route.dataset.route); return; }
+    const drawerSite = event.target.closest(".drawer [data-site]");
+    if (drawerSite) { selectSite(drawerSite.dataset.site); return; }
+    const drawerSeg = event.target.closest(".drawer [data-seg]");
+    if (drawerSeg) { selectSegment(drawerSeg.dataset.seg); return; }
+    if (event.target.closest("#resetBtn")) resetState();
+  });
+
+  $("#drawerClose").addEventListener("click", () => {
+    closeDrawer();
+    setState({ type: "overview" });
+    clearSelectionLayer();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && drawer.classList.contains("open")) {
+      closeDrawer();
+      setState({ type: "overview" });
+      clearSelectionLayer();
+    }
+  });
+
+  $("#backTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+  $("#downloadCsv").addEventListener("click", () => {
+    const rows = [
+      ["站点编号", "站点", "英文名", "累计公里", "建议停留_min", "空间开合_1_5", "轴线感_1_5", "乐章", "空间角色", "怎么看", "路线提示"]
+    ];
+    SITES.forEach(s => rows.push([s.no, s.name, s.en, s.km.toFixed(2), s.dwell, s.openness, s.axisSense, s.section, s.role, s.look, s.tip]));
+    rows.push([]);
+    rows.push(["步行段编号", "起点", "终点", "距离_m", "步行_min", "有效步速_min_100m", "节奏", "摩擦", "斜度_deg", "空间转场", "路线提示"]);
+    SEGMENTS.forEach(s => rows.push([s.no, siteById[s.from].name, siteById[s.to].name, s.distance, s.walk, s.pace, s.tempo.name, s.friction, Math.round(s.angle), s.spatial, s.tip]));
+    rows.push([]);
+    rows.push(["乐章", "名称", "范围", "站数", "步行_min", "停留_min", "合计_min"]);
+    Object.values(SECTIONS).forEach(sec => {
+      const st = sectionStats[sec.id];
+      rows.push([sec.id, sec.name, sec.range, st.sites.length, st.walk, st.dwell, st.walk + st.dwell]);
+    });
+    rows.push([]);
+    rows.push(["路线", "站点顺序", "距离_km", "步行_min", "停留_min", "总时长_min", "建议开始", "路线说明"]);
+    ROUTES.forEach(route => {
+      const st = routeStats(route);
+      rows.push([route.name, st.sites.map(s => s.name).join(" → "), st.km.toFixed(2), st.walk, st.dwell, st.total, route.start, route.note]);
+    });
+    const csv = "\uFEFF" + rows.map(row => row.map(cell => {
+      const value = String(cell == null ? "" : cell);
+      return /[",\n]/.test(value) ? '"' + value.replace(/"/g, '""') + '"' : value;
+    }).join(",")).join("\r\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "北京中轴线节拍数据.csv";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  /* ============================================================
+     8. 启动
+     ============================================================ */
+
+  renderSectionLegend();
+  renderStationIndex();
+  renderRouteCards();
+  renderChart();
+  setState({ type: "overview" });
+})();
+</script>
+</body>
+</html>
